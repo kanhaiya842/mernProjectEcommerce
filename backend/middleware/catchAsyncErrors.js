@@ -1,0 +1,3 @@
+module.exports = (theFunc) => (req,res,next) => {
+    Promise.resolve(theFunc(req,res,next)).catch(next); // We have framed like this format beacuse we want implement try catch to hadle async errors......
+}
