@@ -161,6 +161,9 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 // Create New Review or Update the review
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
     const { rating, comment, productId } = req.body;
+    if(!req.user){
+        return next(new ErrorHandler("Please login or signup to submit a review..",400))
+    }
 
     const review = {
         user: req.user._id,
@@ -170,7 +173,6 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
     };
 
     const product = await Product.findById(productId);
-
     const isReviewed = product.reviews.find(
         (rev) => rev.user.toString() === req.user._id.toString()
     );

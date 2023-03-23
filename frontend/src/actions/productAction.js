@@ -171,7 +171,6 @@ export const newReview = (reviewData) => async (dispatch) => {
         const config = {
             headers: { "Content-Type": "application/json" },
         };
-
         const { data } = await axios.put(`/api/v1/review`, reviewData, config);
 
         dispatch({
